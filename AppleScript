@@ -1,7 +1,7 @@
 
 -- bit.ly/下載_鱫鰰YouTube下載鱮MP4轉換MP3dmg 
 
--- GitHub.com/VirgoEros/YouTubeDownloadVideoToMP3/blob/master/AppleScript 
+-- GitHub.com/VirgoEros/YouTubeDownloadMP4ToMP3/blob/master/AppleScript 
 
 -----------------∞ 鱫鰰YouTube下載鱮MP4轉換MP3 ∞--------------------------ON. 
 global VideoDownloadConversion, UpdateYouTubeDL, YouTubeVideoDownloads, InstallYouTubeDl, VideoConversion, createRamDisk, errmsg, errnbr
