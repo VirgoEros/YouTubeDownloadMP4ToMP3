@@ -1,5 +1,5 @@
 
--- bit.ly/下載_鱫鰰YouTube下載鱮MP4轉換MP3dmg 
+-- bit.ly/下載_鱫鰰YouTube下載鱮MP4轉換MP3 
 
 -- GitHub.com/VirgoEros/YouTubeDownloadMP4ToMP3/blob/master/AppleScript 
 
@@ -313,3 +313,4 @@ end script
 
 
 -- 
+ 
