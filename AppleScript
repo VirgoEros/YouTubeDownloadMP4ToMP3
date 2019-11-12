@@ -1,8 +1,7 @@
-
--- bit.ly/下載_鱫鰰YouTube下載鱮MP4轉換MP3 
-
--- GitHub.com/VirgoEros/YouTubeDownloadMP4ToMP3/blob/master/AppleScript 
-
+(* 
+bit.ly/下載_鱫鰰YouTube下載鱮MP4轉換MP3 
+GitHub.com/VirgoEros/YouTubeDownloadMP4ToMP3/blob/master/AppleScript 
+*)
 -----------------∞ 鱫鰰YouTube下載鱮MP4轉換MP3 ∞--------------------------ON. 
 global VideoDownloadConversion, UpdateYouTubeDL, YouTubeVideoDownloads, InstallYouTubeDl, VideoConversion, createRamDisk, errmsg, errnbr
 global InstallYouTubeDl, YouTubeDl_Path, TerminalNotifier, isDone, itemPath, itemProgress, APPmacOSPath, YouTubeVideoDownloads, errmsg, errnbr
