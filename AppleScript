@@ -1,43 +1,43 @@
 (* 
-bit.ly/下載_鱫鰰YouTube下載鱮MP4轉換MP3 
+bit.ly/下載_鱫鰰YouTube視頻下載鱮MP4轉換MP3 
 GitHub.com/VirgoEros/YouTubeDownloadMP4ToMP3/blob/master/AppleScript 
 *)
------------------∞ 鱫鰰YouTube下載鱮MP4轉換MP3 ∞--------------------------ON. 
+-----------------∞ 鱫鰰YouTube視頻下載鱮MP4轉換MP3 ∞--------------------------ON. 
 global VideoDownloadConversion, UpdateYouTubeDL, YouTubeVideoDownloads, InstallYouTubeDl, VideoConversion, createRamDisk, errmsg, errnbr
 global InstallYouTubeDl, YouTubeDl_Path, TerminalNotifier, isDone, itemPath, itemProgress, APPmacOSPath, YouTubeVideoDownloads, errmsg, errnbr
 global YouTubeVideoDownloads, VideoURL, APPitemPath, inBackground, YouTubeURL, DownloadDestination, TerminalNotifier, isDone, itemPath, itemProgress, errmsg, errnbr
 global VideoConversion, ConversionOption, SinglePiece, BatchConversion, errmsg, errnbr
-global SinglePiece, Input, BitConversion, APPitemPath, InputPath, InputPath1, mk, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, remove_path, oldDelims, this_name, remove_extension, TerminalNotifier, isDone, MP3, itemPath, itemProgress, errmsg, errnbr
-global BatchConversion, Input, media, BitConversion, APPitemPath, Input1, Input2, mk, fileName, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, TerminalNotifier, isDone, MP3, itemPath, itemProgress, errmsg, errnbr, oldDelims, this_name, remove_extension
+global SinglePiece, Input, BitConversion, APPitemPath, InputPath, InputPath1, mk, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, remove_path, oldDelims, this_name, remove_extension, TerminalNotifier, isDone, MP3_Folder, itemPath, itemProgress, errmsg, errnbr
+global BatchConversion, Input, media, BitConversion, APPitemPath, Input1, Input2, mk, fileName, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, TerminalNotifier, isDone, MP3_Folder, itemPath, itemProgress, errmsg, errnbr, oldDelims, this_name, remove_extension
 global OpenScript, OpenAppScript, TerminalNotifier, errmsg, errnbr
 
 on run
 	try
 		tell application "Finder" to set {button returned:VideoDownloadConversion} to ¬
-			display dialog {"請嚫鱫的沝女鰰選擇 YouTube下載 鱮 MP4轉換MP3選項唷💋"} buttons ¬
-				{"YouTube下載 & 鯁新YouTube-Dl", "MP4轉換MP3", "開啟鱫鰰YouTube下載鱮MP4轉換MP3腳本"} default button 1 with title ¬
-				{"YouTube下載"}
-		if VideoDownloadConversion is "YouTube下載 & 鯁新YouTube-Dl" then
+			display dialog {"請嚫鱫的沝女鰰選擇 YouTube視頻下載 鱮 MP4轉換MP3選項唷💋"} buttons ¬
+				{"YouTube視頻下載 & 鯁新YouTube-Dl", "MP4轉換MP3", "開啟腳本"} default button 1 with title ¬
+				{"YouTube視頻下載"}
+		if VideoDownloadConversion is "YouTube視頻下載 & 鯁新YouTube-Dl" then
 			tell application "Finder" to set {button returned:UpdateYouTubeDL} to ¬
-				display dialog ("請嚫鱫的沝女鰰選擇 YouTube下載選項唷💋") buttons ¬
-					{"YouTube下載", "鯁新YouTube-Dl"} default button 1 with title ¬
-					{"YouTube下載"}
-			if UpdateYouTubeDL is "YouTube下載" then run script YouTubeVideoDownloads
+				display dialog ("請嚫鱫的沝女鰰選擇 YouTube視頻下載選項唷💋") buttons ¬
+					{"YouTube視頻下載", "鯁新YouTube-Dl"} default button 1 with title ¬
+					{"YouTube視頻下載"}
+			if UpdateYouTubeDL is "YouTube視頻下載" then run script YouTubeVideoDownloads
 			if UpdateYouTubeDL is "鯁新YouTube-Dl" then run script InstallYouTubeDl
 		end if
 		if VideoDownloadConversion is "MP4轉換MP3" then run script VideoConversion
-		if VideoDownloadConversion is "開啟鱫鰰YouTube下載鱮MP4轉換MP3腳本" then run script OpenScript
+		if VideoDownloadConversion is "開啟腳本" then run script OpenScript
 	on error errmsg number errnbr
 		if errnbr = -128 then continue quit
 		continue quit
 	end try
 end run
------------------------∞ YouTube下載 ∞----------------------------------------ON. 
+-----------------------∞ YouTube視頻下載 ∞----------------------------------------ON. 
 script YouTubeVideoDownloads
 	try
 		tell application "Finder"
 			set VideoURL to display dialog "請嚫鱫的沝女鰰貼上YouTube視頻網址唷💋" default answer "" buttons {"嗯哼。。好的唷💋"} default button 1 with title ¬
-				{"鱫鰰YouTube下載"}
+				{"鱫鰰YouTube視頻下載"}
 			set VideoURL to (text returned of result)
 			if VideoURL is "" then return continue quit
 			set APPitemPath to POSIX path of (path to me as text) ¬
@@ -141,10 +141,10 @@ script SinglePiece
 			end try
 		end repeat
 		if isDone is true then
-			set MP3 to (InputPath & "/_MP3")
-			do shell script ("cd " & InputPath & ";mv *.mp3 " & MP3 & ";cd ;")
+			set MP3_Folder to (InputPath & "/_MP3")
+			do shell script ("cd " & InputPath & ";mv *.mp3 " & MP3_Folder & ";cd ;")
 			do shell script (TerminalNotifier & " -title 轉換鯇成鰳唷💋")
-			do shell script ("open " & MP3)
+			do shell script ("open " & MP3_Folder)
 			continue quit
 		end if
 	on error errmsg number errnbr
@@ -233,11 +233,10 @@ script BatchConversion
 			end try
 		end repeat
 		if isDone is true then
-			set MP3 to Input1 & "_MP3"
-			set MP3 to quoted form of MP3
-			do shell script ("cd " & Input2 & ";mv *.mp3 " & MP3 & ";cd ;")
+			set MP3_Folder to quoted form of (Input1 & "_MP3")
+			do shell script ("cd " & Input2 & ";mv *.mp3 " & MP3_Folder & ";cd ;")
 			do shell script (TerminalNotifier & " -title 轉換鯇成鰳唷💋")
-			do shell script ("open " & MP3)
+			do shell script ("open " & MP3_Folder)
 			continue quit
 		end if
 	on error errmsg number errnbr
@@ -293,7 +292,7 @@ chmod a+rx " & YouTubeDl_Path & " ; " with administrator privileges)
 		continue quit
 	end try
 end script
--------------------- 開啟鱫鰰YouTube下載鱮MP4轉換MP3腳本 ----------------ON. 
+-------------------- 開啟鱫鰰YouTube視頻下載鱮MP4轉換MP3腳本 ----------------ON. 
 script OpenScript
 	try
 		set OpenAppScript to POSIX path of (path to me as text) & ("Contents/Resources/Scripts/main.scpt")
@@ -308,8 +307,7 @@ script OpenScript
 		continue quit
 	end try
 end script
------------------∞ 鱫鰰YouTube下載鱮MP4轉換MP3 ∞-------------------------END. 
+-----------------∞ 鱫鰰YouTube視頻下載鱮MP4轉換MP3 ∞-------------------------END. 
 
 
 -- 
- 
