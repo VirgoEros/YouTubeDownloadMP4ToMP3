@@ -1,7 +1,8 @@
 (* 
-bit.ly/下載_鱫鰰YouTube視頻下載鱮MP4轉換MP3_DMG 
+ bit.ly/下載_鱫鰰YouTube視頻下載鱮MP4轉換MP3_DMG ¬ 
+請先鯁新 YouTube-DL 鱮 FFmpeg 鯽魺使用唷🥰  
 GitHub.com/VirgoEros/YouTubeDownloadMP4ToMP3/blob/master/AppleScript 
-*)
+ *) 
 -----------------∞ 鱫鰰YouTube視頻下載鱮MP4轉換MP3 ∞--------------------------ON. 
 global VideoDownloadConversion, UpdateYouTubeDL, YouTubeVideoDownloads, InstallYouTubeDl, UpdateFFmpeg, VideoConversion, errmsg, errnbr
 global InstallYouTubeDl, YouTubeDl_Path, isDone, itemPath, itemProgress, APPmacOSPath, YouTubeVideoDownloads, errmsg, errnbr
@@ -13,339 +14,338 @@ global InstallFFmpeg, me_Path, MacOS_Path, FFmpeg, isDone, itemPath, itemProgres
 global OpenScript, OpenAppScript, errmsg, errnbr
 
 on run
-	try
-		tell application "Finder" to set {button returned:VideoDownloadConversion} to ¬
-			display dialog {"請嚫鱫的沝女鰰選擇 YouTube視頻下載 鱮 MP4轉換MP3選項唷💋"} buttons ¬
-				{"YouTube視頻下載 & 鯁新YouTube-Dl", "MP4轉換MP3 & 鯁新 FFmpeg", "開啟腳本"} default button 1 with title ¬
-				{"YouTube視頻下載"}
-		if VideoDownloadConversion is "開啟腳本" then run script OpenScript
-		if VideoDownloadConversion is "YouTube視頻下載 & 鯁新YouTube-Dl" then
-			tell application "Finder" to set {button returned:UpdateYouTubeDL} to ¬
-				display dialog ("請嚫鱫的沝女鰰選擇 YouTube視頻下載選項唷💋") buttons ¬
-					{"YouTube視頻下載", "鯁新YouTube-Dl"} default button 1 with title ¬
-					{"YouTube視頻下載"}
-			if UpdateYouTubeDL is "YouTube視頻下載" then run script YouTubeVideoDownloads
-			if UpdateYouTubeDL is "鯁新YouTube-Dl" then run script InstallYouTubeDl
-		end if
-		if VideoDownloadConversion is "MP4轉換MP3 & 鯁新 FFmpeg" then
-			tell application "Finder" to set {button returned:UpdateFFmpeg} to ¬
-				display dialog ("請嚫鱫的沝女鰰選擇 選項唷💋") buttons ¬
-					{"MP4轉換MP3", "鯁新 FFmpeg"} default button 1 with title ¬
-					{"YouTube視頻下載"}
-			if UpdateFFmpeg is "MP4轉換MP3" then run script VideoConversion
-			if UpdateFFmpeg is "鯁新 FFmpeg" then run script InstallFFmpeg
-		end if
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
+ try
+ tell application "Finder" to set {button returned:VideoDownloadConversion} to ¬
+ display dialog {"請嚫鱫的沝女鰰選擇 YouTube視頻下載 鱮 MP4轉換MP3選項唷💋"} buttons ¬
+ {"YouTube視頻下載 & 鯁新YouTube-Dl", "MP4轉換MP3 & 鯁新 FFmpeg", "開啟腳本"} default button 1 with title ¬
+ {"YouTube視頻下載"}
+ if VideoDownloadConversion is "開啟腳本" then run script OpenScript
+ if VideoDownloadConversion is "YouTube視頻下載 & 鯁新YouTube-Dl" then
+ tell application "Finder" to set {button returned:UpdateYouTubeDL} to ¬
+ display dialog ("請嚫鱫的沝女鰰選擇 YouTube視頻下載選項唷💋") buttons ¬
+ {"YouTube視頻下載", "鯁新YouTube-Dl"} default button 1 with title ¬
+ {"YouTube視頻下載"}
+ if UpdateYouTubeDL is "YouTube視頻下載" then run script YouTubeVideoDownloads
+ if UpdateYouTubeDL is "鯁新YouTube-Dl" then run script InstallYouTubeDl
+ end if
+ if VideoDownloadConversion is "MP4轉換MP3 & 鯁新 FFmpeg" then
+ tell application "Finder" to set {button returned:UpdateFFmpeg} to ¬
+ display dialog ("請嚫鱫的沝女鰰選擇 選項唷💋") buttons ¬
+ {"MP4轉換MP3", "鯁新 FFmpeg"} default button 1 with title ¬
+ {"YouTube視頻下載"}
+ if UpdateFFmpeg is "MP4轉換MP3" then run script VideoConversion
+ if UpdateFFmpeg is "鯁新 FFmpeg" then run script InstallFFmpeg
+ end if
+ on error errmsg number errnbr
+ if errnbr = -128 then continue quit
+ continue quit
+ end try
 end run
 -----------------------∞ YouTube視頻下載 ∞----------------------------------------ON. 
 script YouTubeVideoDownloads
-	try
-		tell application "Finder"
-			set VideoURL to display dialog "請嚫鱫的沝女鰰貼上YouTube視頻網址唷💋" default answer "" buttons {"嗯哼。。好的唷💋"} default button 1 with title ¬
-				{"鱫鰰YouTube視頻下載"}
-			set VideoURL to (text returned of result)
-			if VideoURL is "" then return continue quit
-			set APPitemPath to POSIX path of (path to me as text) ¬
-				& {"Contents/MacOS/youtube-dl"}
-			set APPitemPath to quoted form of APPitemPath
-			set inBackground to " &> /dev/null &"
-			set YouTubeURL to (VideoURL & inBackground)
-			set DownloadDestination to quoted form of POSIX path of (choose folder with prompt "請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲下載至哪鮕文件夾唷💋")
-			(do shell script "cd " & DownloadDestination & ";" & APPitemPath & space & YouTubeURL)
-			display notification with title ("視頻準備下載中，請稍候唷💋")
-			delay 1
-			set isDone to false
-			set itemPath to ("youtube-dl")
-			set itemProgress to "ps ax | grep -v grep | grep " & itemPath
-			repeat while isDone is false
-				try
-					do shell script itemProgress
-					if the result contains itemPath then
-						delay 1
-					else
-						set isDone to true
-					end if
-				on error
-					set isDone to true
-				end try
-			end repeat
-			if isDone is true then
-				display notification with title ("視頻下載鯇成鰳唷💋")
-				do shell script ("open " & DownloadDestination)
-				continue quit
-			end if
-		end tell
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
+ try
+ tell application "Finder"
+ set VideoURL to display dialog "請嚫鱫的沝女鰰貼上YouTube視頻網址唷💋" default answer "" buttons {"嗯哼。。好的唷💋"} default button 1 with title ¬
+ {"鱫鰰YouTube視頻下載"}
+ set VideoURL to (text returned of result)
+ if VideoURL is "" then return continue quit
+ set APPitemPath to POSIX path of (path to me as text) ¬
+ & {"Contents/MacOS/youtube-dl"}
+ set APPitemPath to quoted form of APPitemPath
+ set inBackground to " &> /dev/null &"
+ set YouTubeURL to (VideoURL & inBackground)
+ set DownloadDestination to quoted form of POSIX path of (choose folder with prompt "請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲下載至哪鮕文件夾唷💋")
+ (do shell script "cd " & DownloadDestination & ";" & APPitemPath & space & YouTubeURL)
+ display notification with title ("視頻準備下載中，請稍候唷💋")
+ delay 1
+ set isDone to false
+ set itemPath to ("youtube-dl")
+ set itemProgress to "ps ax | grep -v grep | grep " & itemPath
+ repeat while isDone is false
+ try
+ do shell script itemProgress
+ if the result contains itemPath then
+ delay 1
+ else
+ set isDone to true
+ end if
+ on error
+ set isDone to true
+ end try
+ end repeat
+ if isDone is true then
+ display notification with title ("視頻下載鯇成鰳唷💋")
+ do shell script ("open " & DownloadDestination)
+ continue quit
+ end if
+ end tell
+ on error errmsg number errnbr
+ if errnbr = -128 then continue quit
+ continue quit
+ end try
 end script
 ----------------------------∞ ffmpeg轉換選項 ∞----------------------------------------ON. 
 script VideoConversion
-	try
-		tell application "Finder" to set {button returned:ConversionOption} to ¬
-			display dialog {"請嚫鱫的沝女鰰選擇 MP4轉換MP3 選項唷💋"} buttons ¬
-				{"鱓件-MP4轉換𩻟MP3", "批量-MP4轉換𩻟MP3"} default button 1 with title ¬
-				{"ffmpeg轉換選項"}
-		if ConversionOption is "鱓件-MP4轉換𩻟MP3" then run script SinglePiece
-		if ConversionOption is "批量-MP4轉換𩻟MP3" then run script BatchConversion
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
+ try
+ tell application "Finder" to set {button returned:ConversionOption} to ¬
+ display dialog {"請嚫鱫的沝女鰰選擇 MP4轉換MP3 選項唷💋"} buttons ¬
+ {"鱓件-MP4轉換𩻟MP3", "批量-MP4轉換𩻟MP3"} default button 1 with title ¬
+ {"ffmpeg轉換選項"}
+ if ConversionOption is "鱓件-MP4轉換𩻟MP3" then run script SinglePiece
+ if ConversionOption is "批量-MP4轉換𩻟MP3" then run script BatchConversion
+ on error errmsg number errnbr
+ if errnbr = -128 then continue quit
+ continue quit
+ end try
 end script
 -------------------------∞ 鱓件-MP4轉換𩻟MP3 ∞----------------------------------------ON. 
 script SinglePiece
-	try
-		tell application "Finder"
-			set Input to POSIX path of ¬
-				(choose file with prompt ("請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲轉換𩻟 MP3 之 檔案唷💋"))
-			set BitConversion to display dialog ("請嚫鱫的沝女鰰鰎魞轉換 位元率 唷💋 
+ try
+ tell application "Finder"
+ set Input to POSIX path of ¬
+ (choose file with prompt ("請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲轉換𩻟 MP3 之 檔案唷💋"))
+ set BitConversion to display dialog ("請嚫鱫的沝女鰰鰎魞轉換 位元率 唷💋 
 例: 320 256 192 128 64 
 默認 320 唷💋") default answer ("320") buttons {"嗯哼。。好的唷💋"} default button 1 with title ¬
-				{"鱓件-MP4轉換𩻟MP3"}
-		end tell
-		set BitConversion to (text returned of result)
-		if BitConversion is "" then return continue quit
-		set APPitemPath to POSIX path of (path to me as text) ¬
-			& {"Contents/MacOS/ffmpeg"}
-		set APPitemPath to quoted form of APPitemPath
-		set InputPath to remove_path(Input)
-		set InputPath to quoted form of InputPath
-		set mk to ("cd " & InputPath & ";mkdir -p _MP3" & ";cd ; ")
-		set Output to remove_extension(Input)
-		set Output to quoted form of (Output & ".mp3")
-		set ConversionParameter to (" -ab " & BitConversion & "k -ac 2 -ar 48000 ")
-		set Input to quoted form of Input
-		set FFmpegConversion to ¬
-			(APPitemPath & " -nostats -nostdin -n -i " & Input & ConversionParameter & Output)
-		set inBackground to " &> /dev/null &"
-		set FFmpeg to mk & FFmpegConversion & inBackground
-		do shell script FFmpeg
-		display notification with title ("轉換中，請稍候唷💋")
-		delay 1
-		set isDone to false
-		set itemPath to ("ffmpeg")
-		set itemProgress to "ps ax | grep -v grep | grep " & itemPath
-		repeat while isDone is false
-			try
-				do shell script itemProgress
-				if the result contains itemPath then
-					delay 1
-				else
-					set isDone to true
-				end if
-			on error
-				set isDone to true
-			end try
-		end repeat
-		if isDone is true then
-			set MP3_Folder to (InputPath & "/_MP3")
-			do shell script ("cd " & InputPath & ";mv *.mp3 " & MP3_Folder & ";cd ;")
-			display notification with title ("轉換鯇成鰳唷💋")
-			do shell script ("open " & MP3_Folder)
-			continue quit
-		end if
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
-	on remove_path(this_name)
-		try
-			set oldDelims to AppleScript's text item delimiters
-			set AppleScript's text item delimiters to {"/"}
-			if number of text items of this_name > 1 then
-				set this_name to (text items 1 thru -2 of this_name as text)
-			end if
-			set AppleScript's text item delimiters to oldDelims
-		on error
-			set AppleScript's text item delimiters to oldDelims
-		end try
-		return this_name
-	end remove_path
-	on remove_extension(this_name)
-		try
-			set oldDelims to AppleScript's text item delimiters
-			set AppleScript's text item delimiters to {"."}
-			if number of text items of this_name > 1 then
-				set this_name to (text items 1 thru -2 of this_name as text)
-			end if
-			set AppleScript's text item delimiters to oldDelims
-		on error
-			set AppleScript's text item delimiters to oldDelims
-		end try
-		return this_name
-	end remove_extension
+ {"鱓件-MP4轉換𩻟MP3"}
+ end tell
+ set BitConversion to (text returned of result)
+ if BitConversion is "" then return continue quit
+ set APPitemPath to POSIX path of (path to me as text) ¬
+ & {"Contents/MacOS/ffmpeg"}
+ set APPitemPath to quoted form of APPitemPath
+ set InputPath to remove_path(Input)
+ set InputPath to quoted form of InputPath
+ set mk to ("cd " & InputPath & ";mkdir -p _MP3" & ";cd ; ")
+ set Output to remove_extension(Input)
+ set Output to quoted form of (Output & ".mp3")
+ set ConversionParameter to (" -ab " & BitConversion & "k -ac 2 -ar 48000 ")
+ set Input to quoted form of Input
+ set FFmpegConversion to ¬
+ (APPitemPath & " -nostats -nostdin -n -i " & Input & ConversionParameter & Output)
+ set inBackground to " &> /dev/null &"
+ set FFmpeg to mk & FFmpegConversion & inBackground
+ do shell script FFmpeg
+ display notification with title ("轉換中，請稍候唷💋")
+ delay 1
+ set isDone to false
+ set itemPath to ("ffmpeg")
+ set itemProgress to "ps ax | grep -v grep | grep " & itemPath
+ repeat while isDone is false
+ try
+ do shell script itemProgress
+ if the result contains itemPath then
+ delay 1
+ else
+ set isDone to true
+ end if
+ on error
+ set isDone to true
+ end try
+ end repeat
+ if isDone is true then
+ set MP3_Folder to (InputPath & "/_MP3")
+ do shell script ("cd " & InputPath & ";mv *.mp3 " & MP3_Folder & ";cd ;")
+ display notification with title ("轉換鯇成鰳唷💋")
+ do shell script ("open " & MP3_Folder)
+ continue quit
+ end if
+ on error errmsg number errnbr
+ if errnbr = -128 then continue quit
+ continue quit
+ end try
+ on remove_path(this_name)
+ try
+ set oldDelims to AppleScript's text item delimiters
+ set AppleScript's text item delimiters to {"/"}
+ if number of text items of this_name > 1 then
+ set this_name to (text items 1 thru -2 of this_name as text)
+ end if
+ set AppleScript's text item delimiters to oldDelims
+ on error
+ set AppleScript's text item delimiters to oldDelims
+ end try
+ return this_name
+ end remove_path
+ on remove_extension(this_name)
+ try
+ set oldDelims to AppleScript's text item delimiters
+ set AppleScript's text item delimiters to {"."}
+ if number of text items of this_name > 1 then
+ set this_name to (text items 1 thru -2 of this_name as text)
+ end if
+ set AppleScript's text item delimiters to oldDelims
+ on error
+ set AppleScript's text item delimiters to oldDelims
+ end try
+ return this_name
+ end remove_extension
 end script
 -------------------------∞ 批量-MP4轉換𩻟MP3 ∞----------------------------------------ON. 
 script BatchConversion
-	try
-		tell application "Finder"
-			set Input to ¬
-				(choose folder with prompt "請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲轉換𩻟 MP3 之 文件夾唷💋")
-			set media to files of entire contents of folder Input
-			set BitConversion to display dialog ("請嚫鱫的沝女鰰鰎魞轉換 位元率 唷💋 
+ try
+ tell application "Finder"
+ set Input to ¬
+ (choose folder with prompt "請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲轉換𩻟 MP3 之 文件夾唷💋")
+ set media to files of entire contents of folder Input
+ set BitConversion to display dialog ("請嚫鱫的沝女鰰鰎魞轉換 位元率 唷💋 
 例: 320 256 192 128 64 
 默認 320 唷💋") default answer ("320") buttons {"嗯哼。。好的唷💋"} default button 1 with title ¬
-				{"批量-MP4轉換𩻟MP3"}
-		end tell
-		set BitConversion to (text returned of result)
-		if BitConversion is "" then return continue quit
-		set APPitemPath to POSIX path of (path to me as text) ¬
-			& {"Contents/MacOS/ffmpeg"}
-		set APPitemPath to quoted form of APPitemPath
-		set Input1 to POSIX path of Input
-		set Input2 to quoted form of Input1
-		set mk to ("cd " & Input2 & ";mkdir -p _MP3" & ";cd ; ")
-		repeat with i in media
-			set fileName to i as string
-			set Input to POSIX path of fileName
-			set Output to remove_extension(Input)
-			set Output to quoted form of (Output & ".mp3")
-			set Input to quoted form of Input
-			set ConversionParameter to (" -ab " & BitConversion & "k -ac 2 -ar 48000 ")
-			set FFmpegConversion to ¬
-				(APPitemPath & " -nostats -nostdin -n -i " & ¬
-					Input & ConversionParameter & Output)
-			set inBackground to " &> /dev/null &"
-			set FFmpeg to mk & FFmpegConversion & inBackground
-			do shell script FFmpeg
-		end repeat
-		display notification with title ("轉換中，請稍候唷💋")
-		delay 1
-		set isDone to false
-		set itemPath to ("ffmpeg")
-		set itemProgress to "ps ax | grep -v grep | grep " & itemPath
-		repeat while isDone is false
-			try
-				do shell script itemProgress
-				if the result contains itemPath then
-					delay 1
-				else
-					set isDone to true
-				end if
-			on error
-				set isDone to true
-			end try
-		end repeat
-		if isDone is true then
-			set MP3_Folder to quoted form of (Input1 & "_MP3")
-			do shell script ("cd " & Input2 & ";mv *.mp3 " & MP3_Folder & ";cd ;")
-			display notification with title ("轉換鯇成鰳唷💋")
-			do shell script ("open " & MP3_Folder)
-			continue quit
-		end if
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
-	on remove_extension(this_name)
-		if this_name contains "." then
-			set this_name to ¬
-				(the reverse of every character of this_name) as string
-			set x to the offset of "." in this_name
-			set this_name to (text (x + 1) thru -1 of this_name)
-			set this_name to (the reverse of every character of this_name) as string
-		end if
-		return this_name
-	end remove_extension
+ {"批量-MP4轉換𩻟MP3"}
+ end tell
+ set BitConversion to (text returned of result)
+ if BitConversion is "" then return continue quit
+ set APPitemPath to POSIX path of (path to me as text) ¬
+ & {"Contents/MacOS/ffmpeg"}
+ set APPitemPath to quoted form of APPitemPath
+ set Input1 to POSIX path of Input
+ set Input2 to quoted form of Input1
+ set mk to ("cd " & Input2 & ";mkdir -p _MP3" & ";cd ; ")
+ repeat with i in media
+ set fileName to i as string
+ set Input to POSIX path of fileName
+ set Output to remove_extension(Input)
+ set Output to quoted form of (Output & ".mp3")
+ set Input to quoted form of Input
+ set ConversionParameter to (" -ab " & BitConversion & "k -ac 2 -ar 48000 ")
+ set FFmpegConversion to ¬
+ (APPitemPath & " -nostats -nostdin -n -i " & ¬
+ Input & ConversionParameter & Output)
+ set inBackground to " &> /dev/null &"
+ set FFmpeg to mk & FFmpegConversion & inBackground
+ do shell script FFmpeg
+ end repeat
+ display notification with title ("轉換中，請稍候唷💋")
+ delay 1
+ set isDone to false
+ set itemPath to ("ffmpeg")
+ set itemProgress to "ps ax | grep -v grep | grep " & itemPath
+ repeat while isDone is false
+ try
+ do shell script itemProgress
+ if the result contains itemPath then
+ delay 1
+ else
+ set isDone to true
+ end if
+ on error
+ set isDone to true
+ end try
+ end repeat
+ if isDone is true then
+ set MP3_Folder to quoted form of (Input1 & "_MP3")
+ do shell script ("cd " & Input2 & ";mv *.mp3 " & MP3_Folder & ";cd ;")
+ display notification with title ("轉換鯇成鰳唷💋")
+ do shell script ("open " & MP3_Folder)
+ continue quit
+ end if
+ on error errmsg number errnbr
+ if errnbr = -128 then continue quit
+ continue quit
+ end try
+ on remove_extension(this_name)
+ if this_name contains "." then
+ set this_name to ¬
+ (the reverse of every character of this_name) as string
+ set x to the offset of "." in this_name
+ set this_name to (text (x + 1) thru -1 of this_name)
+ set this_name to (the reverse of every character of this_name) as string
+ end if
+ return this_name
+ end remove_extension
 end script
 ------------------------ 鯁新 YouTube-Dl ------------------------ON. 
 script InstallYouTubeDl
-	try
-		set YouTubeDl_Path to POSIX path of (path to me as text) ¬
-			& {"Contents/MacOS/youtube-dl"}
-		set YouTubeDl_Path to quoted form of YouTubeDl_Path
-		(do shell script " 
+ try
+ set YouTubeDl_Path to POSIX path of (path to me as text) ¬
+ & {"Contents/MacOS/youtube-dl"}
+ set YouTubeDl_Path to quoted form of YouTubeDl_Path
+ (do shell script " 
 rm -rf " & YouTubeDl_Path & " ; 
 curl -Lk https://yt-dl.org/downloads/latest/youtube-dl -o " & YouTubeDl_Path & " ; 
 chmod a+rx " & YouTubeDl_Path & " ; " with administrator privileges)
-		delay 1
-		set isDone to false
-		set itemPath to ("youtube-dl ")
-		set itemProgress to "ps ax | grep -v grep | grep " & itemPath
-		repeat while isDone is false
-			try
-				do shell script itemProgress
-				if the result contains itemPath then
-					delay 1
-				else
-					set isDone to true
-				end if
-			on error
-				set isDone to true
-			end try
-		end repeat
-		if isDone is true then
-			display notification with title ("鮟裝鯇成，魺下載影片鰳唷💋")
-			run script YouTubeVideoDownloads -- 運行YouTube下載腳本 
-		end if
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
+ delay 1
+ set isDone to false
+ set itemPath to ("youtube-dl ")
+ set itemProgress to "ps ax | grep -v grep | grep " & itemPath
+ repeat while isDone is false
+ try
+ do shell script itemProgress
+ if the result contains itemPath then
+ delay 1
+ else
+ set isDone to true
+ end if
+ on error
+ set isDone to true
+ end try
+ end repeat
+ if isDone is true then
+ display notification with title ("鮟裝鯇成，魺下載影片鰳唷💋")
+ run script YouTubeVideoDownloads -- 運行YouTube下載腳本 
+ end if
+ on error errmsg number errnbr
+ if errnbr = -128 then continue quit
+ continue quit
+ end try
 end script
 ------------------------ 鯁新 ffmpeg ------------------------ON. 
 script InstallFFmpeg
-	try
-		set me_Path to POSIX path of (path to me as text)
-		set me_Path to quoted form of me_Path
-		
-		set MacOS_Path to POSIX path of (path to me as text) ¬
-			& {"Contents/MacOS/"}
-		set MacOS_Path to quoted form of MacOS_Path
-		(do shell script " 
-	cd " & MacOS_Path & space & " 
-	rm -rf ffmpeg ffmpeg-4.4.1.zip;  
+ try
+ set me_Path to POSIX path of (path to me as text)
+ set me_Path to quoted form of me_Path
+ 
+ set MacOS_Path to POSIX path of (path to me as text) ¬
+ & {"Contents/MacOS/"}
+ set MacOS_Path to quoted form of MacOS_Path
+ (do shell script " 
+ cd " & MacOS_Path & space & " 
+ rm -rf ffmpeg ffmpeg-4.4.1.zip;  
 curl -O https://evermeet.cx/ffmpeg/ffmpeg-4.4.1.zip ")
-		delay 1
-		set isDone to false
-		set itemPath to ("curl -O https://evermeet.cx/ffmpeg/ffmpeg-4.4.1.zip ")
-		set itemProgress to "ps ax | grep -v grep | grep " & itemPath
-		repeat while isDone is false
-			try
-				do shell script itemProgress
-				if the result contains itemPath then
-					delay 1
-				else
-					set isDone to true
-				end if
-			on error
-				set isDone to true
-			end try
-		end repeat
-		if isDone is true then
-			(do shell script " 	
-			cd " & MacOS_Path & space & " 
-		open ffmpeg-4.4.1.zip " & space & (delay 1 & " ;) 	 
-		 mv " & me_Path & space & me_Path & " ;   
-		cd " & MacOS_Path & space & MacOS_Path & ";) 	
-		 cd "))
-			display notification with title ("鮟裝鯇成，魺轉換鰳唷💋")
-			run script VideoConversion -- 運行MP4轉換MP3腳本 
-		end if
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
+ delay 1
+ set isDone to false
+ set itemPath to ("curl -O https://evermeet.cx/ffmpeg/ffmpeg-4.4.1.zip ")
+ set itemProgress to "ps ax | grep -v grep | grep " & itemPath
+ repeat while isDone is false
+ try
+ do shell script itemProgress
+ if the result contains itemPath then
+ delay 1
+ else
+ set isDone to true
+ end if
+ on error
+ set isDone to true
+ end try
+ end repeat
+ if isDone is true then
+ (do shell script "  
+ cd " & MacOS_Path & space & " 
+ open ffmpeg-4.4.1.zip " & space & (delay 1 & " ;)   
+  mv " & me_Path & space & me_Path & " ;   
+ cd " & MacOS_Path & space & MacOS_Path & ";)  
+  cd "))
+ display notification with title ("鮟裝鯇成，魺轉換鰳唷💋")
+ run script VideoConversion -- 運行MP4轉換MP3腳本 
+ end if
+ on error errmsg number errnbr
+ if errnbr = -128 then continue quit
+ continue quit
+ end try
 end script
 -------------------- 開啟鱫鰰YouTube視頻下載鱮MP4轉換MP3腳本 ----------------ON. 
 script OpenScript
-	try
-		set OpenAppScript to POSIX path of (path to me as text) & ("Contents/Resources/Scripts/main.scpt")
-		set OpenAppScript to quoted form of OpenAppScript
-		do shell script ("open " & OpenAppScript)
-		display notification with title ("腳本已開啟鰳唷💋")
-		continue quit
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
+ try
+ set OpenAppScript to POSIX path of (path to me as text) & ("Contents/Resources/Scripts/main.scpt")
+ set OpenAppScript to quoted form of OpenAppScript
+ do shell script ("open " & OpenAppScript)
+ display notification with title ("腳本已開啟鰳唷💋")
+ continue quit
+ on error errmsg number errnbr
+ if errnbr = -128 then continue quit
+ continue quit
+ end try
 end script
 -----------------∞ 鱫鰰YouTube視頻下載鱮MP4轉換MP3 ∞-------------------------END. 
 
-
--- 
+--
