@@ -10,7 +10,7 @@ global YouTubeVideoDownloads, VideoURL, APPitemPath, inBackground, YouTubeURL, D
 global VideoConversion, ConversionOption, SinglePiece, BatchConversion, errmsg, errnbr
 global SinglePiece, Input, BitConversion, APPitemPath, InputPath, InputPath1, mk, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, remove_path, oldDelims, this_name, remove_extension, isDone, MP3_Folder, itemPath, itemProgress, errmsg, errnbr
 global BatchConversion, Input, media, BitConversion, APPitemPath, Input1, Input2, mk, fileName, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, isDone, MP3_Folder, itemPath, itemProgress, errmsg, errnbr, oldDelims, this_name, remove_extension
-global InstallFFmpeg, me_Path, MacOS_Path, FFmpeg, isDone, itemPath, itemProgress, errmsg, errnbr
+global InstallFFmpeg, me_Path, MacOS_Path, FFmpegVersion, FFmpeg, isDone, itemPath, itemProgress, errmsg, errnbr
 global OpenScript, OpenAppScript, errmsg, errnbr
 
 on run
@@ -298,13 +298,20 @@ script InstallFFmpeg
 		set MacOS_Path to POSIX path of (path to me as text) ¬
 			& {"Contents/MacOS/"}
 		set MacOS_Path to quoted form of MacOS_Path
+		set FFmpegVersion to ¬
+			display dialog {" 
+請嚫鱫的鰛鰇鱮美鱺沝女鰰鰎魞欲鯁新FFmpeg版本唷💋 
+默認𩻟 4.4.1 唷💋"} default answer (quoted form of "4.4.1") buttons ¬
+				{"嗯哼。。好的唷💋"} default button ("嗯哼。。好的唷💋")
+		set FFmpegVersion to {text returned of the result}
+		if FFmpegVersion is "" then return continue quit
 		(do shell script " 
  cd " & MacOS_Path & space & " 
- rm -rf ffmpeg ffmpeg-4.4.1.zip;  
-curl -O https://evermeet.cx/ffmpeg/ffmpeg-4.4.1.zip ")
+ rm -rf ffmpeg ffmpeg-" & FFmpegVersion & ".zip;  
+curl -O https://evermeet.cx/ffmpeg/ffmpeg-" & FFmpegVersion & ".zip ")
 		delay 1
 		set isDone to false
-		set itemPath to ("curl -O https://evermeet.cx/ffmpeg/ffmpeg-4.4.1.zip ")
+		set itemPath to ("curl -O https://evermeet.cx/ffmpeg/ffmpeg-" & FFmpegVersion & ".zip ")
 		set itemProgress to "ps ax | grep -v grep | grep " & itemPath
 		repeat while isDone is false
 			try
@@ -320,10 +327,9 @@ curl -O https://evermeet.cx/ffmpeg/ffmpeg-4.4.1.zip ")
 		end repeat
 		if isDone is true then
 			(do shell script "  
- cd " & MacOS_Path & space & " 
- open ffmpeg-4.4.1.zip " & space & (delay 1 & " ;)   
-  mv " & me_Path & space & me_Path & " ;   
- cd " & MacOS_Path & space & MacOS_Path & ";)  
+  mv " & me_Path & space & me_Path & " ;    
+ cd " & MacOS_Path & " ; 
+ open ffmpeg-4.4.1.zip " & space & (delay 1 & " ; )   
   cd "))
 			display notification with title ("鮟裝鯇成，魺轉換鰳唷💋")
 			run script VideoConversion -- 運行MP4轉換MP3腳本 
