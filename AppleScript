@@ -306,8 +306,8 @@ script InstallFFmpeg
 		set FFmpegVersion to {text returned of the result}
 		if FFmpegVersion is "" then return continue quit
 		(do shell script " 
- cd " & MacOS_Path & space & " 
- rm -rf ffmpeg ffmpeg-" & FFmpegVersion & ".zip;  
+cd " & MacOS_Path & space & " 
+rm -rf ffmpeg ffmpeg-" & FFmpegVersion & ".zip;  
 curl -O https://evermeet.cx/ffmpeg/ffmpeg-" & FFmpegVersion & ".zip ")
 		delay 1
 		set isDone to false
@@ -326,11 +326,11 @@ curl -O https://evermeet.cx/ffmpeg/ffmpeg-" & FFmpegVersion & ".zip ")
 			end try
 		end repeat
 		if isDone is true then
-			(do shell script "  
-  mv " & me_Path & space & me_Path & " ;    
- cd " & MacOS_Path & " ; 
- open ffmpeg-4.4.1.zip " & space & (delay 1 & " ; )   
-  cd "))
+			(do shell script "    
+mv " & me_Path & space & me_Path & " ;  
+cd " & MacOS_Path & " ; 
+open ffmpeg-" & FFmpegVersion & ".zip " & space & (delay 1 & " ; )   
+cd "))
 			display notification with title ("鮟裝鯇成，魺轉換鰳唷💋")
 			tell application "Finder" to run script VideoConversion -- 運行MP4轉換MP3腳本 
 		end if
