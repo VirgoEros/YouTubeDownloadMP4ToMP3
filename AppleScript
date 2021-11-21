@@ -298,7 +298,7 @@ script InstallFFmpeg
 		set MacOS_Path to POSIX path of (path to me as text) ¬
 			& {"Contents/MacOS/"}
 		set MacOS_Path to quoted form of MacOS_Path
-		set FFmpegVersion to ¬
+		tell application "Finder" to set FFmpegVersion to ¬
 			display dialog {" 
 請嚫鱫的鰛鰇鱮美鱺沝女鰰鰎魞欲鯁新FFmpeg版本唷💋 
 默認𩻟 4.4.1 唷💋"} default answer (quoted form of "4.4.1") buttons ¬
@@ -332,7 +332,7 @@ curl -O https://evermeet.cx/ffmpeg/ffmpeg-" & FFmpegVersion & ".zip ")
  open ffmpeg-4.4.1.zip " & space & (delay 1 & " ; )   
   cd "))
 			display notification with title ("鮟裝鯇成，魺轉換鰳唷💋")
-			run script VideoConversion -- 運行MP4轉換MP3腳本 
+			tell application "Finder" to run script VideoConversion -- 運行MP4轉換MP3腳本 
 		end if
 	on error errmsg number errnbr
 		if errnbr = -128 then continue quit
