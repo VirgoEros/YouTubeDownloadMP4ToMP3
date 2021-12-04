@@ -218,7 +218,7 @@ script BatchConversion
 		display notification with title ("轉換中，請稍候唷💋")
 		delay 1
 		set isDone to false
-		set itemPath to ("ffmpeg")
+		set itemPath to ("ffmpeg ")
 		set itemProgress to "ps ax | grep -v grep | grep " & itemPath
 		repeat while isDone is false
 			try
@@ -282,7 +282,7 @@ chmod a+rx " & YouTubeDl_Path & " ; " with administrator privileges)
 		end repeat
 		if isDone is true then
 			display notification with title ("鮟裝鯇成，魺下載影片鰳唷💋")
-			run script YouTubeVideoDownloads -- 運行YouTube下載腳本 
+			tell application "Finder" to run script YouTubeVideoDownloads -- 運行YouTube下載腳本 
 		end if
 	on error errmsg number errnbr
 		if errnbr = -128 then continue quit
