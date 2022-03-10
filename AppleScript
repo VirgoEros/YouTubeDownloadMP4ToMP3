@@ -6,10 +6,10 @@ GitHub.com/VirgoEros/YouTubeDownloadMP4ToMP3/blob/master/AppleScript
 -----------------∞ 鱫鰰YouTube視頻下載鱮MP4轉換MP3 ∞--------------------------ON. 
 global VideoDownloadConversion, UpdateYouTubeDL, YouTubeVideoDownloads, InstallYouTubeDl, UpdateFFmpeg, VideoConversion, errmsg, errnbr
 global InstallYouTubeDl, YouTubeDl_Path, isDone, itemPath, itemProgress, APPmacOSPath, YouTubeVideoDownloads, errmsg, errnbr
-global YouTubeVideoDownloads, VideoURL, APPitemPath, inBackground, YouTubeURL, DownloadDestination, isDone, itemPath, itemProgress, errmsg, errnbr
+global YouTubeVideoDownloads, VideoURL, YouTubeItemPath, inBackground, YouTubeURL, DownloadDestination, isDone, itemPath, itemProgress, errmsg, errnbr
 global VideoConversion, ConversionOption, SinglePiece, BatchConversion, errmsg, errnbr
-global SinglePiece, Input, BitConversion, APPitemPath, InputPath, InputPath1, mk, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, remove_path, oldDelims, this_name, remove_extension, isDone, MP3_Folder, itemPath, itemProgress, errmsg, errnbr
-global BatchConversion, Input, media, BitConversion, APPitemPath, Input1, Input2, mk, fileName, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, isDone, MP3_Folder, itemPath, itemProgress, errmsg, errnbr, oldDelims, this_name, remove_extension
+global SinglePiece, Input, BitConversion, FFmpegItemPath, InputPath, InputPath1, mk, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, remove_path, oldDelims, this_name, remove_extension, isDone, MP3_Folder, itemPath, itemProgress, errmsg, errnbr
+global BatchConversion, Input, media, BitConversion, FFmpegItemPath, Input1, Input2, mk, fileName, Output, ConversionParameter, FFmpegConversion, inBackground, FFmpeg, isDone, MP3_Folder, itemPath, itemProgress, errmsg, errnbr, oldDelims, this_name, remove_extension
 global InstallFFmpeg, me_Path, MacOS_Path, FFmpegVersion, FFmpeg, isDone, itemPath, itemProgress, errmsg, errnbr
 global OpenScript, OpenAppScript, errmsg, errnbr
 
@@ -49,17 +49,17 @@ script YouTubeVideoDownloads
 				{"鱫鰰YouTube視頻下載"}
 			set VideoURL to (text returned of result)
 			if VideoURL is "" then return continue quit
-			set APPitemPath to POSIX path of (path to me as text) ¬
+			set YouTubeItemPath to POSIX path of (path to me as text) ¬
 				& {"Contents/MacOS/youtube-dl"}
-			set APPitemPath to quoted form of APPitemPath
+			set YouTubeItemPath to quoted form of YouTubeItemPath
 			set inBackground to " &> /dev/null &"
 			set YouTubeURL to (VideoURL & inBackground)
 			set DownloadDestination to quoted form of POSIX path of (choose folder with prompt "請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲下載至哪鮕文件夾唷💋")
-			(do shell script "cd " & DownloadDestination & ";" & APPitemPath & space & YouTubeURL)
+			(do shell script "cd " & DownloadDestination & ";" & YouTubeItemPath & space & YouTubeURL)
 			display notification with title ("視頻準備下載中，請稍候唷💋")
 			delay 1
 			set isDone to false
-			set itemPath to ("youtube-dl")
+			set itemPath to (YouTubeItemPath)
 			set itemProgress to "ps ax | grep -v grep | grep " & itemPath
 			repeat while isDone is false
 				try
@@ -111,9 +111,9 @@ script SinglePiece
 		end tell
 		set BitConversion to (text returned of result)
 		if BitConversion is "" then return continue quit
-		set APPitemPath to POSIX path of (path to me as text) ¬
+		set FFmpegItemPath to POSIX path of (path to me as text) ¬
 			& {"Contents/MacOS/ffmpeg"}
-		set APPitemPath to quoted form of APPitemPath
+		set FFmpegItemPath to quoted form of FFmpegItemPath
 		set InputPath to remove_path(Input)
 		set InputPath to quoted form of InputPath
 		set mk to ("cd " & InputPath & ";mkdir -p _MP3" & ";cd ; ")
@@ -122,7 +122,7 @@ script SinglePiece
 		set ConversionParameter to (" -ab " & BitConversion & "k -ac 2 -ar 48000 ")
 		set Input to quoted form of Input
 		set FFmpegConversion to ¬
-			(APPitemPath & " -nostats -nostdin -n -i " & Input & ConversionParameter & Output)
+			(FFmpegItemPath & " -nostats -nostdin -n -i " & Input & ConversionParameter & Output)
 		set inBackground to " &> /dev/null &"
 		set FFmpeg to mk & FFmpegConversion & inBackground
 		do shell script FFmpeg
@@ -195,9 +195,9 @@ script BatchConversion
 		end tell
 		set BitConversion to (text returned of result)
 		if BitConversion is "" then return continue quit
-		set APPitemPath to POSIX path of (path to me as text) ¬
+		set FFmpegItemPath to POSIX path of (path to me as text) ¬
 			& {"Contents/MacOS/ffmpeg"}
-		set APPitemPath to quoted form of APPitemPath
+		set FFmpegItemPath to quoted form of FFmpegItemPath
 		set Input1 to POSIX path of Input
 		set Input2 to quoted form of Input1
 		set mk to ("cd " & Input2 & ";mkdir -p _MP3" & ";cd ; ")
@@ -209,7 +209,7 @@ script BatchConversion
 			set Input to quoted form of Input
 			set ConversionParameter to (" -ab " & BitConversion & "k -ac 2 -ar 48000 ")
 			set FFmpegConversion to ¬
-				(APPitemPath & " -nostats -nostdin -n -i " & ¬
+				(FFmpegItemPath & " -nostats -nostdin -n -i " & ¬
 					Input & ConversionParameter & Output)
 			set inBackground to " &> /dev/null &"
 			set FFmpeg to mk & FFmpegConversion & inBackground
